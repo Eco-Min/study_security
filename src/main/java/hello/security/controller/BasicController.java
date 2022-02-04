@@ -1,6 +1,6 @@
 package hello.security.controller;
 
-import hello.security.auth.PrincipalDetails;
+import hello.security.configure.auth.PrincipalDetails;
 import hello.security.model.Role;
 import hello.security.model.User;
 import hello.security.repository.UserRepository;
@@ -74,7 +74,9 @@ public class BasicController {
 
     @ResponseBody
     @GetMapping("/user")
-    public String user() {
+    public String user(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        log.info("principalDetails.getUser() = {}", principalDetails.getUser());
+
         return "user";
     }
 
@@ -91,12 +93,18 @@ public class BasicController {
     }
 
     @GetMapping("/loginForm")
-    public String login() {
+    public String login(Principal principal) {
+        if (principal != null) {
+            return "redirect:/";
+        }
         return "loginForm";
     }
 
     @GetMapping("/joinForm")
-    public String joinForm() {
+    public String joinForm(Principal principal) {
+        if (principal != null) {
+            return "redirect:/";
+        }
         return "joinForm";
     }
 
