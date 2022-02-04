@@ -1,4 +1,4 @@
-package hello.security.auth;
+package hello.security.configure.auth;
 
 /*
 security 가 /login 주소 요청이 오면 낚아채서 로그인을 진행 시킨다.
@@ -15,17 +15,27 @@ import hello.security.model.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 @Getter
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private User user;
+    // Oauth2User로 로그인을 받을시 attributes 로 저장
+    private Map<String, Object> attributes;
 
+    //일반 로그인시
     public PrincipalDetails(User user) {
         this.user = user;
+    }
+    // Oauth 로그인시
+    public PrincipalDetails(User user, Map<String, Object> attributes) {
+        this.user = user;
+        this.attributes = attributes;
     }
 
     // 해당 User의 권한을 리턴하는 곳
@@ -68,5 +78,15 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    @Override
+    public String getName() {
+        return (String) attributes.get("sub");
     }
 }
