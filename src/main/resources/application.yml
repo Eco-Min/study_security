@@ -25,20 +25,20 @@ spring:
       client:
         registration:
           google:
-            client-id: 548658035865-retmqr31c1oljfi4kf2e9raruoomra9b.apps.googleusercontent.com
-            client-secret: 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
+            client-id: 구글 개발자센터에서 확인
+            client-secret: 구글 개발자센터에서 확인
             scope:
               - email
               - profile
           facebook:
-            client-id: 473476817654979
-            client-secret: 37f80e2dd9a4a9047a546cd91099be86
+            client-id: 페이스북 개발자센터에서 확인
+            client-secret: 페이스북 개발자센터에서 확인
             scope:
               - email
               - public_profile
           naver:
-            client-id: SnaN9J2uSgYN7mTsdCQS
-            client-secret: zgpsNIMJ2a
+            client-id: 네이버 개발자센터에서 확인
+            client-secret: 네이버 개발자센터에서 확인
 #            scope:
 #              - email
 #              - name
